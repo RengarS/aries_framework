@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="aries_boot" />
+        <module name="aries_discovery" />
+        <module name="aries_template" />
+        <module name="aries_templet" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="aries_boot" target="1.8" />
+      <module name="aries_discovery" target="1.8" />
+      <module name="aries_framework" target="1.8" />
+      <module name="aries_template" target="1.8" />
+      <module name="aries_templet" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
