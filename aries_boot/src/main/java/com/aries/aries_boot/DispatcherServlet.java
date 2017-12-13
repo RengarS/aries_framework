@@ -70,6 +70,8 @@ public class DispatcherServlet extends HttpServlet {
 
         if (handler == null) {
             logger.info("没有找到与请求对应的方法");
+            throw
+                    new RuntimeException("没有找到与请求对应的方法");
         } else {
             logger.info("处理请求的方法是：" + handler.getControllerClass().getName() + "." + handler.getActionMethod().getName());
             //获取Controller类及其bean实例

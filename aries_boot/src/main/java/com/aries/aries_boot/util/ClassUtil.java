@@ -56,7 +56,7 @@ public final class ClassUtil {
      * @return
      */
     public static Set<Class<?>> getClassSet(String packageName) {
-        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        Set<Class<?>> classSet = new HashSet<>();
         try {
             Enumeration<URL> urls = getClassLoader().getResources(packageName.replace(".", "/"));
             while (urls.hasMoreElements()) {
@@ -95,12 +95,8 @@ public final class ClassUtil {
     }
 
     public static void addClass(Set<Class<?>> classSet, String packagePath, String packageName) {
-        File[] files = new File(packagePath).listFiles(new FileFilter() {
-            public boolean accept(File file) {
-                return (file.isFile() && file.getName().endsWith(".class")) ||
-                        file.isDirectory();
-            }
-        });
+        File[] files = new File(packagePath).listFiles(file ->
+                (file.isFile() && file.getName().endsWith(".class")) || file.isDirectory());
         for (File file : files) {
             String fileName = file.getName();
             if (file.isFile()) {

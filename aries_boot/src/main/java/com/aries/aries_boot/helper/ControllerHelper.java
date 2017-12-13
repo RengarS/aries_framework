@@ -23,7 +23,7 @@ public final class ControllerHelper {
     /**
      * 用于存放请求与处理器的的映射关系（简称 requestMapping map）
      */
-    private static final Map<Request, Handler> REQUESTMAPPING_MAP = new HashMap<Request, Handler>();
+    private static final Map<Request, Handler> REQUESTMAPPING_MAP = new HashMap<>();
 
     private static final Logger logger = LoggerFactory.getLogger(ControllerHelper.class);
 
@@ -49,7 +49,7 @@ public final class ControllerHelper {
                     for (Method method : methods) {
                         if (method.isAnnotationPresent(RequestMapping.class)) {
                             RequestMapping mapping = method.getDeclaredAnnotation(RequestMapping.class);
-                            REQUESTMAPPING_MAP.put(new Request(mapping.method().toUpperCase(),mapping.value()), new Handler(controllerClass, method));
+                            REQUESTMAPPING_MAP.put(new Request(mapping.method().toUpperCase(), mapping.value()), new Handler(controllerClass, method));
                             logger.info(mapping.value() + ":" + mapping.method() + "已经注入到RequestMapping map");
                         } else {
                             continue;
