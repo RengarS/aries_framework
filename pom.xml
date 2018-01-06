@@ -11,7 +11,7 @@
     <modules>
         <module>aries_boot</module>
         <module>aries_discovery</module>
-        <module>aries_templet</module>
+        <module>aries_template</module>
     </modules>
 
     <properties>

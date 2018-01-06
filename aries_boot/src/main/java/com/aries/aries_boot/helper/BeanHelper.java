@@ -7,6 +7,7 @@ import com.aries.aries_boot.annotation.Service;
 import com.aries.aries_boot.util.ReflectionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class BeanHelper {
     /**
      * 定义bean映射（用于存放Bean类与Bean实例的映射关系）
      */
-    private static final Map<Class<?>, Object> BEAN_MAP = new HashMap<Class<?>, Object>();
+    private static final Map<Class<?>, Object> BEAN_MAP = new HashMap<>();
 
     private static final Logger logger = LoggerFactory.getLogger(BeanHelper.class);
 
@@ -59,9 +60,7 @@ public class BeanHelper {
                         filter(method -> method.isAnnotationPresent(Bean.class)).
                         forEach(method -> {
                             BEAN_MAP.put(
-                                    method.getReturnType(), ReflectionUtil.invokeMethod(
-                                            BEAN_MAP.get(beanClass), method
-                                    )
+                                    method.getReturnType(), ReflectionUtil.invokeMethod(BEAN_MAP.get(beanClass), method)
                             );
 
                             logger.info(beanClass.getName() + "." + method.getName() + "的返回值已经注入到容器（被@Bean注解）");

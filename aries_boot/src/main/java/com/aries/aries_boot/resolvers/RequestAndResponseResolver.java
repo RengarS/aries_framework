@@ -1,6 +1,7 @@
 package com.aries.aries_boot.resolvers;
 
 import com.aries.aries_boot.annotation.*;
+import com.aries.aries_boot.helper.ConfigHelper;
 import com.aries.aries_boot.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import java.util.List;
 public class RequestAndResponseResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestAndResponseResolver.class);
+    private static final String basePath = Class.class.getClass().getResource("/").getPath();
 
 
     /**
@@ -151,7 +153,7 @@ public class RequestAndResponseResolver {
             //如果返回值是string类型的，并且没有被@ResponseBody标记，则返回一个view
             else if (result instanceof String && !actionMethod.isAnnotationPresent(ResponseBody.class)) {
                 logger.info("返回Page：" + result + ".jsp中");
-                response.sendRedirect("/WEB-INF/views/" + "index.jsp");
+                response.sendRedirect(basePath + ConfigHelper.getAppJspPath() + result + ".jsp");
             }
         }
 
@@ -196,7 +198,9 @@ public class RequestAndResponseResolver {
                     new RuntimeException("写出StreamBody返回值失败！", e);
         } finally {
             try {
-                stream.close();
+                if (stream != null) {
+                    stream.close();
+                }
             } catch (IOException e) {
                 logger.error("关闭outPutStream失败！");
             }
