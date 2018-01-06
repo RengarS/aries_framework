@@ -18,18 +18,18 @@ import java.util.Map;
  * 检测每个service是否在线
  */
 public class ServiceCheck {
-//
-//    private static final OkHttpClient client = new OkHttpClient();
-//
-//    private static final Logger logger = LoggerFactory.getLogger(ServiceCheck.class);
-//
-//    private static Map<String, List<String>> SERVICE_MAP = ServiceHelper.getServiceIpsMap();
-//
-//    /**
-//     * 检测service是否在线。
-//     * 如果service离线，从map中移除。else  do nothing
-//     */
-//    public void checkService() {
+
+    private static final OkHttpClient client = new OkHttpClient();
+
+    private static final Logger logger = LoggerFactory.getLogger(ServiceCheck.class);
+
+    private static Map<String, List<String>> SERVICE_MAP = ServiceHelper.getServiceIpsMap();
+
+    /**
+     * 检测service是否在线。
+     * 如果service离线，从map中移除。else  do nothing
+     */
+    public void checkService() {
 //        for (Map.Entry<String, List<String>> entry : SERVICE_MAP.entrySet()) {
 //            String serviceName = entry.getKey();
 //            List<String> ipList = entry.getValue();
@@ -47,7 +47,7 @@ public class ServiceCheck {
 //
 //    }
 //
-//    private  static int checkServiceServer(String ip) throws Exception {
+//    private static int checkServiceServer(String ip) throws Exception {
 //        String serviceUrl = ip + "/discovery/check";
 //        Request request = new Request.Builder()
 //                .url(serviceUrl)
@@ -55,6 +55,6 @@ public class ServiceCheck {
 //        Call call = client.newCall(request);
 //        Response response = call.execute();
 //        return response.code();
-//    }
+    }
 
 }

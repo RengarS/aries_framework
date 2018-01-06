@@ -33,7 +33,7 @@ public class RequestAndResponseResolver {
      * @param actionMethod
      * @return
      */
-    public static <T> Object requestParamResolver(HttpServletRequest request, HttpServletResponse response, Object controllerBean, Method actionMethod) {
+    public static Object requestParamResolver(HttpServletRequest request, HttpServletResponse response, Object controllerBean, Method actionMethod) {
         //获取actionMethod的所有参数
         Parameter[] parameters = actionMethod.getParameters();
         //请求参数列表
