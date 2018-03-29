@@ -41,7 +41,7 @@ public final class ClassUtil {
         Class<?> cls;
         try {
             cls = Class.forName(className, isInitialized, getClassLoader());
-            logger.info("正在加载类：" + className);
+            logger.debug("正在加载类：" + className);
         } catch (ClassNotFoundException e) {
             logger.error(" load class failure", e);
             throw new RuntimeException(e);

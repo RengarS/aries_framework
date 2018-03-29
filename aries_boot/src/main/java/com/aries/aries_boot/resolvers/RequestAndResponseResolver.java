@@ -23,7 +23,7 @@ import java.util.List;
 public class RequestAndResponseResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestAndResponseResolver.class);
-    private static final String basePath = Class.class.getClass().getResource("/").getPath();
+//    private static final String basePath = Class.class.getClass().getResource("/").getPath();
 
 
     /**
@@ -48,29 +48,29 @@ public class RequestAndResponseResolver {
             if (ClassTypeUtil.isRefType(parameter.getType())) {
                 if (parameter.getType() == Model.class) {
                     paramList.add(new Model(request));
-                    logger.info("参数：Model已经解析");
+                    logger.debug("参数：Model已经解析");
                 } else if (parameter.getType() == String.class) {
                     if (parameter.isAnnotationPresent(RequestParam.class)) {
                         String name = parameter.getDeclaredAnnotation(RequestParam.class).value();
                         paramList.add(request.getParameter(name));
-                        logger.info("参数：" + name + "已经解析");
+                        logger.debug("参数：" + name + "已经解析");
                     }
                 } else if (parameter.getType() == HttpSession.class) {
                     //解析session类型的参数
                     paramList.add(request.getSession());
-                    logger.info("参数：Session已经解析");
+                    logger.debug("参数：Session已经解析");
                 } else if (parameter.getType() == Cookie[].class) {
                     //解析Cookie类型的参数
                     paramList.add(request.getCookies());
-                    logger.info("参数：Cookie[]已经解析");
+                    logger.debug("参数：Cookie[]已经解析");
                 } else if (parameter.getType() == HttpServletRequest.class) {
                     //可以访问request
                     paramList.add(request);
-                    logger.info("参数：HttpServletRequest已经解析");
+                    logger.debug("参数：HttpServletRequest已经解析");
                 } else if (parameter.getType() == HttpServletResponse.class) {
                     //可以访问Response
                     paramList.add(response);
-                    logger.info("参数：HttpServletResponse已经解析");
+                    logger.debug("参数：HttpServletResponse已经解析");
                 } else if (parameter.isAnnotationPresent(RequestStream.class)) {
                     //解析Stream参数
                     byte[] bytes = new byte[request.getContentLength()];
@@ -88,7 +88,7 @@ public class RequestAndResponseResolver {
                         String name = parameter.getDeclaredAnnotation(RequestBody.class).value();
                         if (!"".equals(name)) {
                             paramList.add(JsonUtil.fromJson(request.getParameter(name), parameter.getType()));
-                            logger.info("参数：" + name + "已经解析");
+                            logger.debug("参数：" + name + "已经解析");
                         } else {
                             paramList.add(JsonUtil.fromJson(request, parameter.getType()));
                         }
@@ -100,7 +100,7 @@ public class RequestAndResponseResolver {
                 if (parameter.isAnnotationPresent(RequestParam.class)) {
                     String name = parameter.getDeclaredAnnotation(RequestParam.class).value();
                     paramList.add(CastUtil.castStringToOtherType(parameter.getType(), request.getParameter(name)));
-                    logger.info("参数：" + name + "已经解析");
+                    logger.debug("参数：" + name + "已经解析");
                 }
             }
         }
@@ -109,7 +109,7 @@ public class RequestAndResponseResolver {
         paramList.
                 parallelStream().
                 forEach(param ->
-                        logger.info("参数列表中的：" + param.toString()
+                        logger.debug("参数列表中的：" + param.toString()
                         )
                 );
 
@@ -120,7 +120,7 @@ public class RequestAndResponseResolver {
         }
 
 
-        logger.info("正在调用请求handler的方法");
+        logger.debug("正在调用请求handler的方法");
         //help GC
         paramList = null;
 
@@ -152,8 +152,8 @@ public class RequestAndResponseResolver {
             }
             //如果返回值是string类型的，并且没有被@ResponseBody标记，则返回一个view
             else if (result instanceof String && !actionMethod.isAnnotationPresent(ResponseBody.class)) {
-                logger.info("返回Page：" + result + ".jsp中");
-                response.sendRedirect(basePath + ConfigHelper.getAppJspPath() + result + ".jsp");
+                logger.debug("返回Page：" + result + ".jsp中");
+//                response.sendRedirect(basePath + ConfigHelper.getAppJspPath() + result + ".jsp");
             }
         }
 
@@ -174,7 +174,7 @@ public class RequestAndResponseResolver {
             response.setCharacterEncoding("UTF-8");
             PrintWriter writer = response.getWriter();
             String json = JsonUtil.toJson(result);
-            logger.info("返回值的json体是：" + json);
+            logger.debug("返回值的json体是：" + json);
             writer.write(json);
             writer.flush();
             writer.close();

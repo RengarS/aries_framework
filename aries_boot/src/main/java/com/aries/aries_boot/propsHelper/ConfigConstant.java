@@ -17,4 +17,6 @@ public interface ConfigConstant {
     //表示静态资源文件的基础路径  比如  js css  图片
     String APP_ASSET_PATH = "aries.framework.app.asset_path";
 
+    String MAPPER_PACKAGE = "aries.framework.mapper.basePackage";
+
 }

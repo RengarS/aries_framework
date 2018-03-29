@@ -50,7 +50,9 @@ public final class ControllerHelper {
                         if (method.isAnnotationPresent(RequestMapping.class)) {
                             RequestMapping mapping = method.getDeclaredAnnotation(RequestMapping.class);
                             REQUESTMAPPING_MAP.put(new Request(mapping.method().toUpperCase(), mapping.value()), new Handler(controllerClass, method));
-                            logger.info(mapping.value() + ":" + mapping.method() + "已经注入到RequestMapping map");
+                            logger.debug(mapping.value() + ":" + mapping.method() + "已经注入到RequestMapping map");
+
+                            System.out.println(mapping.value() + ":" + mapping.method() + "已经注入到RequestMapping map");
                         } else {
                             continue;
                         }
@@ -59,7 +61,7 @@ public final class ControllerHelper {
 
             }
         }
-        logger.info("RequestMapping_map的size：" + REQUESTMAPPING_MAP.size());
+        logger.debug("RequestMapping_map的size：" + REQUESTMAPPING_MAP.size());
     }
 
 

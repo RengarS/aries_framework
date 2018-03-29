@@ -12,6 +12,8 @@
         <module>aries_boot</module>
         <module>aries_discovery</module>
         <module>aries_template</module>
+        <module>mybatis_aries</module>
+        <module>context</module>
     </modules>
 
     <properties>

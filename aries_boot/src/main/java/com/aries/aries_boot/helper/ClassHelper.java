@@ -2,6 +2,7 @@ package com.aries.aries_boot.helper;
 
 
 import com.aries.aries_boot.annotation.Controller;
+import com.aries.aries_boot.annotation.Repository;
 import com.aries.aries_boot.annotation.Service;
 import com.aries.aries_boot.util.ClassUtil;
 import org.slf4j.Logger;
@@ -23,8 +24,11 @@ public final class ClassHelper {
 
 
     public ClassHelper() {
-        logger.info("ClassHelper已经启动");
+        logger.debug("ClassHelper已经启动");
         String basePackage = ConfigHelper.getAppBasePackage();
+
+        System.out.println("basePackage :" + basePackage);
+
         CLASS_SET = ClassUtil.getClassSet(basePackage);
     }
 
@@ -41,7 +45,7 @@ public final class ClassHelper {
      * @return
      */
     public static Set<Class<?>> getServiceClassSet() {
-        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        Set<Class<?>> classSet = new HashSet<>();
         for (Class<?> cls : CLASS_SET) {
             if (cls.isAnnotationPresent(Service.class)) {
                 classSet.add(cls);
@@ -65,15 +69,26 @@ public final class ClassHelper {
         return classSet;
     }
 
+    public static Set<Class<?>> getRepositoryClassSet() {
+        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAnnotationPresent(Repository.class)) {
+                classSet.add(cls);
+            }
+        }
+        return classSet;
+    }
+
     /**
      * 获取应用包下所有Bean类包括service controller等
      *
      * @return
      */
     public static Set<Class<?>> getBeanClassSet() {
-        Set<Class<?>> beanClassSet = new HashSet<Class<?>>();
+        Set<Class<?>> beanClassSet = new HashSet<>();
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
+        beanClassSet.addAll(getRepositoryClassSet());
         return beanClassSet;
     }
 

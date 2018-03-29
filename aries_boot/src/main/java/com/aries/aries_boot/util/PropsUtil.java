@@ -25,7 +25,7 @@ public final class PropsUtil {
         Properties props = null;
         InputStream is = null;
         try {
-            is = ClassUtil.getClassLoader().getResourceAsStream(fileName);
+            is = ClassUtil.getClassLoader().getResourceAsStream("/" + fileName);
             if (is == null) {
                 throw new FileNotFoundException(fileName + " file is not found");
             }

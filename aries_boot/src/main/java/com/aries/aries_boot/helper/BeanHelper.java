@@ -3,13 +3,15 @@ package com.aries.aries_boot.helper;
 
 import com.aries.aries_boot.annotation.Bean;
 import com.aries.aries_boot.annotation.Controller;
+import com.aries.aries_boot.annotation.Repository;
 import com.aries.aries_boot.annotation.Service;
 import com.aries.aries_boot.util.ReflectionUtil;
+import com.aries.context.AriesFrameworkBeanContext;
+import com.aries.mybatis_aries.DynamicGenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,20 +23,29 @@ public class BeanHelper {
     /**
      * 定义bean映射（用于存放Bean类与Bean实例的映射关系）
      */
-    private static final Map<Class<?>, Object> BEAN_MAP = new HashMap<>();
+    private static final Map<Class<?>, Object> BEAN_MAP = AriesFrameworkBeanContext.getBeanContext();
 
     private static final Logger logger = LoggerFactory.getLogger(BeanHelper.class);
 
     public BeanHelper() {
-        logger.info("BeanHelp已经启动");
+        logger.debug("BeanHelp已经启动");
         Set<Class<?>> beanClassSet = ClassHelper.getBeanClassSet();
         for (Class<?> beanClass : beanClassSet) {
 
-            if (beanClass.isAnnotationPresent(Service.class) || beanClass.isAnnotationPresent(Controller.class)) {
+            if (beanClass.isAnnotationPresent(Service.class) || beanClass.isAnnotationPresent(Controller.class)
+                    || beanClass.isAnnotationPresent(Repository.class)) {
+
+                //给DAO接口及其实现类注入进IoC容器
+                if (beanClass.isAnnotationPresent(Repository.class)) {
+                    BEAN_MAP.put(beanClass, DynamicGenUtil.getDAOImpl(beanClass));
+
+                    logger.debug("DAO接口" + beanClass.getName() + "及其Proxy已经注入到容器");
+                    continue;
+                }
 
                 Object obj = ReflectionUtil.newInstance(beanClass);
                 BEAN_MAP.put(beanClass, obj);
-                logger.info(beanClass.getName() + "已经注入到容器");
+                logger.debug(beanClass.getName() + "已经注入到容器");
                 //面向接口的支持
                 if (beanClass.getInterfaces().length != 0) {
                     Arrays.
@@ -45,14 +56,14 @@ public class BeanHelper {
                                         BEAN_MAP.put(
                                                 ImplInterface, ReflectionUtil.newInstance(beanClass)
                                         );
-                                        logger.info(ImplInterface.getName() + "已经注入到容器");
+                                        logger.debug(ImplInterface.getName() + "已经注入到容器");
                                     }
                             );
                 }
                 //多态的支持
                 if (beanClass.getSuperclass() != null && beanClass.getSuperclass() != Object.class) {
                     BEAN_MAP.put(beanClass.getSuperclass(), ReflectionUtil.newInstance(beanClass));
-                    logger.info(beanClass.getSuperclass().getName() + "已经注入到容器");
+                    logger.debug(beanClass.getSuperclass().getName() + "已经注入到容器");
                 }
                 //@Bean注解的支持
                 Arrays.stream(beanClass.getDeclaredMethods()).
@@ -63,13 +74,22 @@ public class BeanHelper {
                                     method.getReturnType(), ReflectionUtil.invokeMethod(BEAN_MAP.get(beanClass), method)
                             );
 
-                            logger.info(beanClass.getName() + "." + method.getName() + "的返回值已经注入到容器（被@Bean注解）");
+                            logger.debug(beanClass.getName() + "." + method.getName() + "的返回值已经注入到容器（被@Bean注解）");
                         });
 
             }
         }
 
-        logger.info("IoC容器的Size：" + BEAN_MAP.size());
+
+        logger.debug("IoC容器的Size：" + BEAN_MAP.size());
+
+        System.out.println("IoC容器的Size：" + BEAN_MAP.size());
+
+        for (Map.Entry<Class<?>, Object> m : BEAN_MAP.entrySet()) {
+            System.out.println(m.getKey().getName());
+        }
+
+
     }
 
 

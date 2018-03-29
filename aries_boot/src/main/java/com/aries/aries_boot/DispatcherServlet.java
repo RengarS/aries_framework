@@ -32,7 +32,9 @@ public class DispatcherServlet extends HttpServlet {
          * 初始化相关Helper类
          */
         try {
+            logger.debug("DispatcherServlet  init   ing......");
             new ClassHelper();
+            new InitSqlSessionFactoryHelper();
             new BeanHelper();
             new IocHelper();
             new ControllerHelper();
@@ -44,10 +46,11 @@ public class DispatcherServlet extends HttpServlet {
             //注册静态资源的默认servlet
             ServletRegistration defaultServlet = servletContext.getServletRegistration("default");
             defaultServlet.addMapping(ConfigHelper.getAppAssetPath() + "*");
-            logger.info("DispatcherServlet初始化完毕");
+            logger.debug("DispatcherServlet初始化完毕");
         } catch (Exception e) {
-            logger.error("初始化失败");
-            throw new RuntimeException("DispatcherServlet初始化失败", e);
+//            logger.error("初始化失败");
+            e.printStackTrace();
+            throw new RuntimeException("DispatcherServlet初始化失败", e.getCause());
         }
 
     }
@@ -66,14 +69,14 @@ public class DispatcherServlet extends HttpServlet {
         String requestPath = request.getPathInfo();
         //获取action处理器
         Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);
-        logger.info("请求路径：" + requestPath + "  请求方法：" + requestMethod);
+        logger.debug("请求路径：" + requestPath + "  请求方法：" + requestMethod);
 
         if (handler == null) {
-            logger.info("没有找到与请求对应的方法");
+            logger.debug("没有找到与请求对应的方法");
             throw
                     new RuntimeException("没有找到与请求对应的方法");
         } else {
-            logger.info("处理请求的方法是：" + handler.getControllerClass().getName() + "." + handler.getActionMethod().getName());
+            logger.debug("处理请求的方法是：" + handler.getControllerClass().getName() + "." + handler.getActionMethod().getName());
             //获取Controller类及其bean实例
             Class<?> controllerClass = handler.getControllerClass();
             Object controllerBean = BeanHelper.getBean(controllerClass);
@@ -81,7 +84,7 @@ public class DispatcherServlet extends HttpServlet {
             Method actionMethod = handler.getActionMethod();
             Object result = RequestAndResponseResolver.requestParamResolver(request, response, controllerBean, actionMethod);
 
-            logger.info("处理返回值中...");
+            logger.debug("处理返回值中...");
             //处理返回值
             RequestAndResponseResolver.returnResultResolver(result, request, response, actionMethod);
         }

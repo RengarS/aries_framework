@@ -41,7 +41,7 @@ public class IocHelper {
                                     BEAN_MAP.get(clazz), field, BEAN_MAP.get(field.getType())
                             );
 
-                            logger.info("正在给Field：" + clazz.getName() + "." + field.getName() + "赋值为" + BEAN_MAP.get(field.getType()).toString());
+//                            logger.debug("正在给Field：" + clazz.getName() + "." + field.getName() + "赋值为" + BEAN_MAP.get(field.getType()).toString());
                         } catch (IllegalAccessException e) {
                             throw new RuntimeException("field" + field.toString() + "赋值出错！", e);
                         }

@@ -1,7 +1,6 @@
 package com.aries.aries_boot.helper;
 
 
-
 import com.aries.aries_boot.propsHelper.ConfigConstant;
 import com.aries.aries_boot.util.PropsUtil;
 
@@ -31,6 +30,11 @@ public final class ConfigHelper {
      */
     public static String getJdbcUrl() {
         return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_URL);
+    }
+
+
+    public static String getMapperPackage() {
+        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.MAPPER_PACKAGE);
     }
 
     /**

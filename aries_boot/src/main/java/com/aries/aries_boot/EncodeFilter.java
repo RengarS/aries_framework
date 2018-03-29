@@ -15,13 +15,13 @@ public class EncodeFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
-        logger.info("EncodeFilter已经启动");
+        logger.debug("EncodeFilter已经启动");
 
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("EncodeFilter拦截请求中...");
+        logger.debug("EncodeFilter拦截请求中...");
         servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
         filterChain.doFilter(servletRequest, servletResponse);
