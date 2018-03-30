@@ -2,7 +2,7 @@
 
 仿照Spring和SpringMVC实现的一个Java web框架。
 
-主要功能有：IoC、AOP、请求转发等。同时封装了OkHttp和Google protocal buffers作为Rpc框架，实现了分布式功能。
+主要功能有：IoC、AOP、请求转发等，集成了mybatis和thymeleaf。
 
 这个框架作为我的毕业设计，很多地方不是很完善，实现上也有非常大的优化、拓展空间。
 

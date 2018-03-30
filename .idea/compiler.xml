@@ -7,8 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="aries_boot" />
-        <module name="aries_discovery" />
-        <module name="aries_template" />
         <module name="aries_templet" />
         <module name="context" />
         <module name="mybatis_aries" />

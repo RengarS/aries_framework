@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/aries_boot/aries_boot.iml" filepath="$PROJECT_DIR$/aries_boot/aries_boot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/aries_discovery/aries_discovery.iml" filepath="$PROJECT_DIR$/aries_discovery/aries_discovery.iml" />
       <module fileurl="file://$PROJECT_DIR$/aries_framework.iml" filepath="$PROJECT_DIR$/aries_framework.iml" />
-      <module fileurl="file://$PROJECT_DIR$/aries_template/aries_template.iml" filepath="$PROJECT_DIR$/aries_template/aries_template.iml" />
       <module fileurl="file://$PROJECT_DIR$/context/context.iml" filepath="$PROJECT_DIR$/context/context.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis_aries/mybatis_aries.iml" filepath="$PROJECT_DIR$/mybatis_aries/mybatis_aries.iml" />
     </modules>
