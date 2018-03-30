@@ -23,8 +23,6 @@ import java.util.List;
 public class RequestAndResponseResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestAndResponseResolver.class);
-//    private static final String basePath = Class.class.getClass().getResource("/").getPath();
-
 
     /**
      * 请求参数解析
@@ -152,8 +150,9 @@ public class RequestAndResponseResolver {
             }
             //如果返回值是string类型的，并且没有被@ResponseBody标记，则返回一个view
             else if (result instanceof String && !actionMethod.isAnnotationPresent(ResponseBody.class)) {
-                logger.debug("返回Page：" + result + ".jsp中");
-//                response.sendRedirect(basePath + ConfigHelper.getAppJspPath() + result + ".jsp");
+//                ThymeleafApplication thymeleafApplication = new ThymeleafApplication();
+                //交给Thymeleaf引擎渲染并写出
+                ThymeleafApplication.process(request, response, (String) result);
             }
         }
 

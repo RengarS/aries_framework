@@ -48,7 +48,7 @@ public class DispatcherServlet extends HttpServlet {
             defaultServlet.addMapping(ConfigHelper.getAppAssetPath() + "*");
             logger.debug("DispatcherServlet初始化完毕");
         } catch (Exception e) {
-//            logger.error("初始化失败");
+            //logger.error("初始化失败");
             e.printStackTrace();
             throw new RuntimeException("DispatcherServlet初始化失败", e.getCause());
         }
