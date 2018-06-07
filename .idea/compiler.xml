@@ -7,19 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="aries_boot" />
-        <module name="aries_templet" />
         <module name="context" />
         <module name="mybatis_aries" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="aries_boot" target="1.8" />
-      <module name="aries_discovery" target="1.8" />
-      <module name="aries_framework" target="1.8" />
-      <module name="aries_template" target="1.8" />
-      <module name="aries_templet" target="1.8" />
-      <module name="context" target="1.8" />
-      <module name="mybatis_aries" target="1.8" />
+      <module name="aries_session" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -10,10 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>aries_boot</module>
-        <module>aries_discovery</module>
-        <module>aries_template</module>
         <module>mybatis_aries</module>
         <module>context</module>
+        <module>aries_session</module>
     </modules>
 
     <properties>
@@ -39,6 +38,8 @@
             <scope>provided</scope>
 
         </dependency>
+
+
 
         <!-- JSP -->
 
@@ -73,15 +74,15 @@
         <!-- SLF4J -->
 
 
-        <dependency>
+        <!--<dependency>-->
 
-            <groupId>org.slf4j</groupId>
+            <!--<groupId>org.slf4j</groupId>-->
 
-            <artifactId>slf4j-log4j12</artifactId>
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
 
-            <version>1.7.7</version>
+            <!--<version>1.7.7</version>-->
 
-        </dependency>
+        <!--</dependency>-->
 
         <!-- MySQL -->
 
